@@ -129,61 +129,62 @@
 		</div>
 		<script>
 			window.addEventListener('WebComponentsReady', function() {
+				window.requestAnimationFrame(function() {
+					var focusFirstButton = function(e) {
+						var button = e.detail.activeView.querySelector('button');
+						if (button) {
+							button.focus();
+						}
+					};
 
-				var focusFirstButton = function(e) {
-					var button = e.detail.activeView.querySelector('button');
-					if (button) {
-						button.focus();
-					}
-				};
+					var rootView = document.getElementById('view1');
 
-				var rootView = document.getElementById('view1');
-
-				rootView.addEventListener('d2l-hierarchical-view-show-complete', function(e) {
-					focusFirstButton(e);
-				});
-				rootView.addEventListener('d2l-hierarchical-view-hide-complete', function(e) {
-					focusFirstButton(e);
-				});
-
-				var config_buttons = document.getElementById('config_buttons');
-				var views = document.querySelectorAll('d2l-hierarchical-view');
-
-				for (var i = 0; i < views.length; i++) {
-					var button = document.createElement('button');
-					button.appendChild(document.createTextNode('show ' + views[i].id));
-					button.setAttribute('data-view-id', views[i].id);
-					button.addEventListener('click', function(e) {
-						document.getElementById(e.target.getAttribute('data-view-id')).show();
+					rootView.addEventListener('d2l-hierarchical-view-show-complete', function(e) {
+						focusFirstButton(e);
 					});
-					config_buttons.appendChild(button);
-				}
+					rootView.addEventListener('d2l-hierarchical-view-hide-complete', function(e) {
+						focusFirstButton(e);
+					});
 
-				document.getElementById('btn-view-2a').addEventListener('click', function() {
-					showSubView('view2a');
-				});
-				document.getElementById('btn-view-2b').addEventListener('click', function() {
-					showSubView('view2b');
-				});
-				document.getElementById('btn-view-3').addEventListener('click', function() {
-					showSubView('view3');
-				});
-				document.getElementById('btn-view-4').addEventListener('click', function() {
-					showSubView('view4');
-				});
-				document.getElementById('btn-parent-view-3').addEventListener('click', function() {
-					showParentView('view3');
-				});
-				document.getElementById('btn-parent-view-4').addEventListener('click', function() {
-					showParentView('view4');
-				});
-				document.getElementById('btn-parent-view-2b').addEventListener('click', function() {
-					showParentView('view2b');
-				});
-				document.getElementById('btn-append-content').addEventListener('click', function() {
-					appendContent('view1');
-				});
+					var config_buttons = document.getElementById('config_buttons');
+					var views = document.querySelectorAll('d2l-hierarchical-view');
 
+					for (var i = 0; i < views.length; i++) {
+						var button = document.createElement('button');
+						button.appendChild(document.createTextNode('show ' + views[i].id));
+						button.setAttribute('data-view-id', views[i].id);
+						button.addEventListener('click', function(e) {
+							document.getElementById(e.target.getAttribute('data-view-id')).show();
+						});
+						config_buttons.appendChild(button);
+					}
+
+					document.getElementById('btn-view-2a').addEventListener('click', function() {
+						showSubView('view2a');
+					});
+					document.getElementById('btn-view-2b').addEventListener('click', function() {
+						showSubView('view2b');
+					});
+					document.getElementById('btn-view-3').addEventListener('click', function() {
+						showSubView('view3');
+					});
+					document.getElementById('btn-view-4').addEventListener('click', function() {
+						showSubView('view4');
+					});
+					document.getElementById('btn-parent-view-3').addEventListener('click', function() {
+						showParentView('view3');
+					});
+					document.getElementById('btn-parent-view-4').addEventListener('click', function() {
+						showParentView('view4');
+					});
+					document.getElementById('btn-parent-view-2b').addEventListener('click', function() {
+						showParentView('view2b');
+					});
+					document.getElementById('btn-append-content').addEventListener('click', function() {
+						appendContent('view1');
+					});
+
+				});
 			});
 
 			function showSubView(id) {
