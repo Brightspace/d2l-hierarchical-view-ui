@@ -85,7 +85,7 @@
 								<d2l-hierarchical-view id="view2a">
 									<div style="min-height: 400px;">
 										<div class="buttons">
-											<button onclick="showParentView('view2a');">view 1 (parent)</button>
+											<button id="btn-parent-view-2a">view 1 (parent)</button>
 											<button id="btn-view-3">view 3</button>
 										</div>
 										view 2a
@@ -170,6 +170,9 @@
 					});
 					document.getElementById('btn-view-4').addEventListener('click', function() {
 						showSubView('view4');
+					});
+					document.getElementById('btn-parent-view-2a').addEventListener('click', function() {
+						showParentView('view2a');
 					});
 					document.getElementById('btn-parent-view-3').addEventListener('click', function() {
 						showParentView('view3');
