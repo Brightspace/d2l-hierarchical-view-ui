@@ -160,11 +160,11 @@ $_documentContainer.innerHTML = `<div class="vertical-section-container centered
 document.body.appendChild($_documentContainer.content);
 </script>
 		<script type="module">
-import '../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
-import '../../@polymer/iron-demo-helpers/demo-snippet.js';
-import '../../d2l-typography/d2l-typography.js';
+import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
+import '@polymer/iron-demo-helpers/demo-snippet.js';
+import 'd2l-typography/d2l-typography.js';
 import '../d2l-hierarchical-view.js';
-import { dom } from '../../@polymer/polymer/lib/legacy/polymer.dom.js';
+import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 window.requestAnimationFrame(function() {
 	var focusFirstButton = function(e) {
 		var button = e.detail.activeView.querySelector('button');
