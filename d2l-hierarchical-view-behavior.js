@@ -1,4 +1,5 @@
 import '@polymer/polymer/polymer-legacy.js';
+import 'fastdom/fastdom.js';
 import 'd2l-polymer-behaviors/d2l-dom.js';
 import 'd2l-polymer-behaviors/d2l-dom-focus.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
@@ -311,7 +312,7 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 			return;
 		}
 
-		requestAnimationFrame(function() {
+		fastdom.measure(function() {
 			if (view.offsetParent === null) {
 				return;
 			}
@@ -321,7 +322,9 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 			} else {
 				rect = view.getBoundingClientRect();
 			}
-			this.style.height = rect.height + 'px';
+			fastdom.mutate(function() {
+				this.style.height = rect.height + 'px';
+			}.bind(this));
 		}.bind(this));
 
 	},
@@ -341,7 +344,9 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 			return;
 		}
 		var content = this.$$('.d2l-hierarchical-view-content');
-		this.fire('d2l-hierarchical-view-resize', content.getBoundingClientRect());
+		fastdom.measure(function() {
+			this.fire('d2l-hierarchical-view-resize', content.getBoundingClientRect());
+		}.bind(this));
 	},
 
 	__focusCapture: function(e) {
