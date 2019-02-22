@@ -345,7 +345,10 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 		}
 		var content = this.$$('.d2l-hierarchical-view-content');
 		fastdom.measure(function() {
-			this.fire('d2l-hierarchical-view-resize', content.getBoundingClientRect());
+			var contentRect = content.getBoundingClientRect();
+			// don't resize the root view if it's not displayed
+			if (contentRect.height < 1) return;
+			this.fire('d2l-hierarchical-view-resize', contentRect);
 		}.bind(this));
 	},
 
