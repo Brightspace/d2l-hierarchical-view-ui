@@ -138,7 +138,7 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 	__nativeFocus: null,
 
 	listeners: {
-		'keydown': '__onKeyDown',
+		'keyup': '__onKeyUp',
 		'd2l-hierarchical-view-hide-start': '__onHideStart',
 		'd2l-hierarchical-view-show-start': '__onShowStart',
 		'd2l-hierarchical-view-resize': '__onViewResize'
@@ -455,7 +455,7 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 
 	},
 
-	__onKeyDown: function(e) {
+	__onKeyUp: function(e) {
 		if (this.childView && e.keyCode === this.__keyCodes.ESCAPE) {
 			e.stopPropagation();
 			this.hide();
