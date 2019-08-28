@@ -1,7 +1,7 @@
 import '@polymer/polymer/polymer-legacy.js';
 import 'fastdom/fastdom.js';
-import 'd2l-polymer-behaviors/d2l-dom.js';
-import 'd2l-polymer-behaviors/d2l-dom-focus.js';
+import { findComposedAncestor, isComposedAncestor } from '@brightspace-ui/core/helpers/dom.js';
+import { getNextFocusable, getPreviousFocusable } from '@brightspace-ui/core/helpers/focus.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 const $_documentContainer = document.createElement('template');
@@ -155,7 +155,7 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 
 		this.isAttached = true;
 
-		var parentView = D2L.Dom.findComposedAncestor(
+		var parentView = findComposedAncestor(
 			dom(this).parentNode,
 			function(node) { return node.isHierarchicalView; }
 		);
@@ -217,7 +217,7 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 		if (!this.childView) {
 			return this;
 		}
-		var rootView = D2L.Dom.findComposedAncestor(
+		var rootView = findComposedAncestor(
 			dom(this).parentNode,
 			function(node) {
 				return node.isHierarchicalView && !node.childView;
@@ -291,12 +291,12 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 		sourceView = this;
 		var activeView = this.getActiveView();
 
-		if (D2L.Dom.isComposedAncestor(activeView, this)) {
+		if (isComposedAncestor(activeView, this)) {
 			_show(data, this);
 			return;
 		}
 
-		if (D2L.Dom.isComposedAncestor(this, activeView)) {
+		if (isComposedAncestor(this, activeView)) {
 			_hideChildViews(data, this);
 			return;
 		}
@@ -363,29 +363,29 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 		var relatedTarget = e.relatedTarget;
 		var focusableElement;
 
-		var getNextFocusable = function() {
+		var getNextFocusableLocal = function() {
 			var activeView = this.getActiveView();
 			if (this.__nativeFocus === activeView.focus) {
-				return D2L.Dom.Focus.getNextFocusable(activeView);
+				return getNextFocusable(activeView);
 			} else {
 				return activeView;
 			}
 		}.bind(this);
 
 		if (relatedTarget) {
-			if (!D2L.Dom.isComposedAncestor(this, relatedTarget)) {
-				focusableElement = getNextFocusable();
+			if (!isComposedAncestor(this, relatedTarget)) {
+				focusableElement = getNextFocusableLocal();
 			} else {
-				focusableElement = D2L.Dom.Focus.getPreviousFocusable(this);
+				focusableElement = getPreviousFocusable(this);
 			}
 		} else {
 
 			// handle focus for ie
 			if (this.__focusPrevious) {
 				this.__focusPrevious = false;
-				focusableElement = D2L.Dom.Focus.getPreviousFocusable(this);
+				focusableElement = getPreviousFocusable(this);
 			} else {
-				focusableElement = getNextFocusable();
+				focusableElement = getNextFocusableLocal();
 			}
 
 		}
@@ -404,8 +404,8 @@ D2L.PolymerBehaviors.HierarchicalViewBehavior = {
 		var relatedTarget = e.relatedTarget;
 		var activeView = this.getActiveView();
 		this.__focusPrevious = false;
-		if (D2L.Dom.isComposedAncestor(activeView, e.target)) {
-			if (D2L.Dom.isComposedAncestor(this, relatedTarget)) {
+		if (isComposedAncestor(activeView, e.target)) {
+			if (isComposedAncestor(this, relatedTarget)) {
 				this.__focusPrevious = true;
 			}
 		}
