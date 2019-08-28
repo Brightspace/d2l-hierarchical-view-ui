@@ -154,7 +154,7 @@ describe('<d2l-hierarchical-view>', function() {
 				done();
 			});
 			var view2_content = document.getElementById('view2_content');
-			MockInteractions.keyDownOn(view2_content, 27);
+			MockInteractions.pressAndReleaseKeyOn(view2_content, 27);
 		});
 		view2.show();
 	});
