@@ -158,8 +158,8 @@ npm test
 
 [bower-url]: http://bower.io/search/?q=d2l-hierarchical-view
 [bower-image]: https://badge.fury.io/bo/d2l-hierarchical-view.svg
-[ci-url]: https://travis-ci.org/BrightspaceUI/hierarchical-view
-[ci-image]: https://travis-ci.org/BrightspaceUI/hierarchical-view.svg?branch=master
+[ci-url]: https://travis-ci.com/BrightspaceUI/hierarchical-view
+[ci-image]: https://travis-ci.com/BrightspaceUI/hierarchical-view.svg?branch=master
 
 ## Versioning & Releasing
 
